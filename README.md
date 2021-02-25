@@ -1,1 +1,1 @@
-"# hrsample" 
+# hrsample
