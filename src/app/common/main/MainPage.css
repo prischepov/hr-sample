@@ -1,0 +1,17 @@
+
+.main-page_item {
+    height: 400px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aquamarine;
+    background-color: #2D2D2D;
+    color: #fff;
+    font-size: 3em;
+    text-decoration: none;
+}
+
+.main-page_item:last-of-type {
+    margin-left: 50px;
+}
