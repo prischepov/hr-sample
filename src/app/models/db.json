@@ -1,0 +1,25 @@
+{
+    "employees": [
+        {
+            "fullName": "Ivan Ivanov",
+            "photoURL": "https://i.pravatar.cc/200",
+            "position": "software developer",
+            "workSchedule": "fulltime",
+            "status": "active"
+        },
+        {
+            "fullName": "Vera Petrova",
+            "photoURL": "https://i.pravatar.cc/200",
+            "position": "qa engineer",
+            "workSchedule": "parttime",
+            "status": "joining"
+        },
+        {
+            "fullName": "Fedor Fedorov",
+            "photoURL": "https://i.pravatar.cc/200",
+            "position": "architect",
+            "workSchedule": "fulltime",
+            "status": "leaving"
+        }
+    ]
+}
