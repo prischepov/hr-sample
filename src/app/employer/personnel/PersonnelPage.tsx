@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
 import { Employee } from '../../models/Employee';
-import { Header, List } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import EmployerNavBar from '../EmployerNavBar';
+import PersonnelDashboard from './PersonnelDashboard';
 
-const EmployerHomePage = () => {
+export default function PersonnelPage() {
 
     const [employees, setEmployees] = useState([]);
 
@@ -19,14 +20,6 @@ const EmployerHomePage = () => {
     return (
         <Fragment>
             <EmployerNavBar/>
-            <List>
-                {employees.map((employee: Employee, index: number) => {
-                    return <List.Item key={index}>
-                        {employee.fullName}
-                    </List.Item>
-                })}
-            </List>
+            <PersonnelDashboard employees={employees}/>
         </Fragment>
 )}
-
-export default EmployerHomePage
