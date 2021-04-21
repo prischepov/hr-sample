@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
-import { Employee } from '../../models/Employee';
-import { List } from 'semantic-ui-react';
+import { Button, Container, Segment } from 'semantic-ui-react';
 import EmployerNavBar from '../EmployerNavBar';
 import PersonnelDashboard from './PersonnelDashboard';
+import VacancyForm from '../vacancies/VacancyForm';
 
 export default function PersonnelPage() {
 
@@ -20,6 +20,12 @@ export default function PersonnelPage() {
     return (
         <Fragment>
             <EmployerNavBar/>
+            <Container>
+                <Button positive floated="right">
+                    Add vacancy
+                </Button>
+            </Container>
             <PersonnelDashboard employees={employees}/>
+            <VacancyForm/>
         </Fragment>
 )}
