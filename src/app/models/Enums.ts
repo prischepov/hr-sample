@@ -16,6 +16,11 @@ export enum ScheduleShifts {
   Night = 'night'
 }
 
+export enum ClosureReason {
+  Fulfilled = 'fulfilled',
+  NoLongerRelevant = 'noLongerRelevant'
+}
+
 export interface InputOption {
     key: string, 
     text: string, 
@@ -38,4 +43,9 @@ export const SCHEDULE_DAYS_OPTIONS: InputOption[] = [
 export const SCHEDULE_SHIFT_OPTIONS: InputOption[] = [
   { key: ScheduleShifts.Day, text: 'Day', value: ScheduleShifts.Day},
   { key: ScheduleShifts.Night, text: 'Night', value: ScheduleShifts.Night }
+]
+
+export const CLOSURE_REASONS: InputOption[] = [
+  { key: ClosureReason.Fulfilled, text: 'Fulfilled', value: ClosureReason.Fulfilled },
+  { key: ClosureReason.NoLongerRelevant, text: 'No longer relevant', value: ClosureReason.NoLongerRelevant }
 ]

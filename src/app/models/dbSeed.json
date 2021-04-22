@@ -28,21 +28,49 @@
             "scheduleDays": "5x2",
             "scheduleShifts": "day",
             "quantity": 3,
-            "comment": "Some comment goes here."
+            "comment": "Some comment goes here.",
+            "publishedTimestamp" : "2021-04-15T10:00:00.000Z", 
+            "isClosed": "false"
         },
         {
             "position": "qa",
             "scheduleDays": "5x2",
             "scheduleShifts": "day",
+            "quantity": 2,
+            "comment": "Some other comment goes here.",
+            "publishedTimestamp" : "2021-04-19T12:00:00.000Z", 
+            "isClosed": "false"
+        },
+        {
+            "position": "architect",
+            "scheduleDays": "5x2",
+            "scheduleShifts": "day",
             "quantity": 1,
-            "comment": "Some other comment goes here."
+            "comment": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a",
+            "publishedTimestamp" : "2021-04-15T10:00:00.000Z", 
+            "isClosed": "true",
+            "closureReason": "fulfilled",
+            "closedTimestamp" : "2021-04-20T11:00:00.000Z" 
         },
         {
             "position": "support",
             "scheduleDays": "2x2",
             "scheduleShifts": "night",
             "quantity": 2,
-            "comment": "Some comment for support position goes here."
+            "comment": "Some comment for support position goes here.",
+            "publishedTimestamp" : "2021-04-19T12:00:00.000Z", 
+            "isClosed": "false"
+        },
+        {
+            "position": "manager",
+            "scheduleDays": "5x2",
+            "scheduleShifts": "day",
+            "quantity": 1,
+            "comment": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a",
+            "publishedTimestamp" : "2021-04-15T10:00:00.000Z", 
+            "isClosed": "true",
+            "closureReason": "fulfilled",
+            "closedTimestamp" : "2021-04-20T11:00:00.000Z" 
         }
     ]
 }
