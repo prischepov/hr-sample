@@ -4,10 +4,10 @@ import { Vacancy } from '../../models/Vacancy'
 
 interface Props {
     vacancy: Vacancy;
-    handleCancelSelection: () => void;
+    handleCancelVacancySelection: () => void;
 }
 
-export default function VacancyDetails({vacancy, handleCancelSelection} : Props) {
+export default function VacancyDetails({vacancy, handleCancelVacancySelection} : Props) {
     return (
         <Card>
             <Card.Content>
@@ -23,7 +23,7 @@ export default function VacancyDetails({vacancy, handleCancelSelection} : Props)
                 <Card.Description>{vacancy.comment}</Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <Button basic color='grey' onClick={handleCancelSelection}>
+                <Button basic color='grey' onClick={handleCancelVacancySelection}>
                     Back to list
                 </Button>
             </Card.Content>

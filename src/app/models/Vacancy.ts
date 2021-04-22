@@ -8,7 +8,7 @@ export interface Vacancy {
     quantity: number,
     comment: string,
     publishedTimestamp: Date,
-    isClosed: Boolean,
+    isClosed: boolean,
     closureReason: ClosureReason | undefined,
     closedTimestamp: Date | undefined,
 }

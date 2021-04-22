@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
-import { Button, Container } from 'semantic-ui-react';
 import EmployerNavBar from '../EmployerNavBar';
 import VacanciesDashboard from './VacanciesDashboard';
 import VacancyForm from './VacancyForm';
@@ -21,12 +20,22 @@ export default function VacanciesPage() {
             })
     }, []);
 
-    function handleSelectVacancy(id: string) {
-        setSelectedVacancy(vacancies.find(item => item.id === id));
+    function handleSelectVacancy(vacancyId: string) {
+        setSelectedVacancy(vacancies.find(item => item.id === vacancyId));
     }
 
-    function handleCancelSelection() {
+    function handleCancelVacancySelection() {
         setSelectedVacancy(undefined);
+    }
+
+    function handleTurnEditModeOn(vacancyId: string | undefined) {
+        vacancyId ? handleSelectVacancy(vacancyId) : handleCancelVacancySelection();
+        setEditMode(true);
+    }
+
+    function handleTurnEditModeOff() {
+        handleCancelVacancySelection()
+        setEditMode(false);
     }
 
     return (
@@ -36,14 +45,19 @@ export default function VacanciesPage() {
             <VacanciesDashboard 
                 vacancies={vacancies}
                 selectedVacancy={selectedVacancy}
-                handleSelectVacancy={handleSelectVacancy}/>
+                editMode={editMode}
+                handleSelectVacancy={handleSelectVacancy}
+                handleTurnEditModeOn={handleTurnEditModeOn}/>
 
-            {selectedVacancy 
+            { selectedVacancy && !editMode
                 && <VacancyDetails 
                     vacancy = {selectedVacancy}
-                    handleCancelSelection={handleCancelSelection}/>}
+                    handleCancelVacancySelection={handleCancelVacancySelection}/>
+            }
 
-            <VacancyForm/>
+            { editMode 
+                && <VacancyForm selectedVacancy={selectedVacancy} handleTurnEditModeOff={handleTurnEditModeOff}/> 
+            }
         </Fragment>
     )
 }
