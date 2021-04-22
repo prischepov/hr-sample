@@ -11,7 +11,7 @@ export default function PersonnelList({employees}: Props) {
             <Item.Group divided>
                 {employees.map((employee: Employee, index: number) => {
                     return <Item key={index}>
-                        <Item.Image size='small' src={employee.photoURL} />
+                        <Item.Image size='small' circular src={employee.photoURL} />
                         <Item.Content>
                             <Item.Header>{employee.fullName}</Item.Header>
                             <Item.Description>

@@ -4,7 +4,7 @@ import './MainPage.css';
 
 const MainPage = () => (
     <Fragment>
-        <Link to="/employer/home" className="main-page_item">Employer</Link>
+        <Link to="/employer/personnel" className="main-page_item">Employer</Link>
         <Link to="/recruiter/home" className="main-page_item">Recruiter</Link>
     </Fragment>
 )

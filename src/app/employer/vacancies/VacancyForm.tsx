@@ -1,6 +1,5 @@
-import React from "react";
-import { Button, Form, FormInput, FormSelect, Header, Radio, Segment, TextArea } from "semantic-ui-react";
-import { POSITIONS, SCHEDULE_DAYS, SCHEDULE_PART_OF_DAY as SCHEDULE_WORK_SHIFTS} from '../../models/Enums'
+import { Button, Form, FormInput, FormSelect, Header, Segment } from "semantic-ui-react";
+import { POSITION_OPTIONS, SCHEDULE_DAYS_OPTIONS, SCHEDULE_SHIFT_OPTIONS as SCHEDULE_WORK_SHIFTS} from '../../models/Enums'
 
 export default function VacancyForm() {
     
@@ -8,9 +7,9 @@ export default function VacancyForm() {
         <Segment>
             <Form>
                 <Header>Add vacancy</Header>
-                <FormSelect inline placeholder='Position' selection options={POSITIONS} />
+                <FormSelect inline placeholder='Position' selection options={POSITION_OPTIONS} />
                 <Form.Group inline>
-                    <FormSelect inline placeholder='Schedule' selection options={SCHEDULE_DAYS} />
+                    <FormSelect inline placeholder='Schedule' selection options={SCHEDULE_DAYS_OPTIONS} />
                     <FormSelect inline placeholder='Working shift' selection options={SCHEDULE_WORK_SHIFTS} />
                 </Form.Group>
                 <FormInput inline placeholder="Quantity"/>

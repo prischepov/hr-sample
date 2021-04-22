@@ -21,5 +21,28 @@
             "workSchedule": "fulltime",
             "status": "leaving"
         }
+    ],
+    "vacancies": [
+        {
+            "position": "developer",
+            "scheduleDays": "5x2",
+            "scheduleShifts": "day",
+            "quantity": 3,
+            "comment": "Some comment goes here."
+        },
+        {
+            "position": "qa",
+            "scheduleDays": "5x2",
+            "scheduleShifts": "day",
+            "quantity": 1,
+            "comment": "Some other comment goes here."
+        },
+        {
+            "position": "support",
+            "scheduleDays": "2x2",
+            "scheduleShifts": "night",
+            "quantity": 2,
+            "comment": "Some comment for support position goes here."
+        }
     ]
 }

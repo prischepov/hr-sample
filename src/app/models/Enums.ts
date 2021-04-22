@@ -1,23 +1,41 @@
+export enum Positions {
+  Developer = 'developer',
+  QA = 'qa',
+  Architect = 'architect',
+  Manager = 'manager',
+  Support = 'support'
+}
+
+export enum ScheduleDays {
+  TwoDays = '2x2',
+  FiveDays = '5x2'
+}
+
+export enum ScheduleShifts {
+  Day = 'day',
+  Night = 'night'
+}
+
 export interface InputOption {
     key: string, 
     text: string, 
     value: string
 }
 
-export const POSITIONS: InputOption[] = [
-    { key:'developer', text: 'Software developer', value: 'developer' },
-    { key:'qa', text: 'QA engineer', value: 'qa' },
-    { key:'architect', text: 'Architect', value: 'architect' },
-    { key:'manager', text: 'Project manager', value: 'manager' },
-    { key:'support', text: 'Support specialist', value: 'support' },
+export const POSITION_OPTIONS: InputOption[] = [
+    { key: Positions.Developer, text: 'Software developer', value: Positions.Developer },
+    { key: Positions.QA, text: 'QA engineer', value: Positions.QA },
+    { key: Positions.Architect, text: 'Architect', value: Positions.Architect },
+    { key: Positions.Manager, text: 'Project manager', value: Positions.Manager },
+    { key: Positions.Support, text: 'Support specialist', value: Positions.Support }
 ]
 
-export const SCHEDULE_DAYS: InputOption[] = [
-    { key:'2x2', text: '2x2', value: '2x2' },
-    { key:'5x2', text: '5x2', value: '5x2' },
+export const SCHEDULE_DAYS_OPTIONS: InputOption[] = [
+    { key: ScheduleDays.TwoDays, text: '2x2', value: ScheduleDays.TwoDays },
+    { key: ScheduleDays.FiveDays, text: '5x2', value: ScheduleDays.FiveDays }
 ]
 
-export const SCHEDULE_PART_OF_DAY: InputOption[] = [
-  { key:'day', text: 'Day', value: 'day' },
-  { key:'night', text: 'Night', value: 'night' },
+export const SCHEDULE_SHIFT_OPTIONS: InputOption[] = [
+  { key: ScheduleShifts.Day, text: 'Day', value: ScheduleShifts.Day},
+  { key: ScheduleShifts.Night, text: 'Night', value: ScheduleShifts.Night }
 ]
