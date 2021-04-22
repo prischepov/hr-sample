@@ -1,9 +1,13 @@
-import { Positions, ScheduleDays, ScheduleShifts } from "./Enums";
+import { ClosureReason, Positions, ScheduleDays, ScheduleShifts } from "./Enums";
 
 export interface Vacancy {
     position: Positions,
     scheduleDays: ScheduleDays,
     scheduleShifts: ScheduleShifts,
     quantity: number,
-    comment: string
+    comment: string,
+    publishedTimestamp: Date,
+    isClosed: boolean,
+    closureReason: ClosureReason | undefined,
+    closedTimestamp: Date | undefined,
 }
