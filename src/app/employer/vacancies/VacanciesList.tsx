@@ -3,9 +3,10 @@ import { Vacancy } from "../../models/Vacancy"
 
 interface Props {
     vacancies: Vacancy[];
+    handleSelectVacancy: (id: string) => void;
 }
 
-export default function VacanciesList({vacancies}: Props) {
+export default function VacanciesList({vacancies, handleSelectVacancy}: Props) {
     return (
         <Segment>
             <Item.Group divided>
@@ -13,7 +14,7 @@ export default function VacanciesList({vacancies}: Props) {
                     return <Item key={index}>
                         <Item.Image size="tiny" src={`../../assets/${vacancy.position}.png`} />
                          <Item.Content>
-                            <Item.Header>{vacancy.position}</Item.Header>
+                            <Item.Header as="a" onClick={() => handleSelectVacancy(vacancy.id)}>{vacancy.position}</Item.Header>
                             <Item.Description>
                                 <div>{vacancy.scheduleDays}</div>
                                 <div>{vacancy.scheduleShifts}</div>

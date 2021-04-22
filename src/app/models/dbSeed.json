@@ -1,6 +1,7 @@
 {
     "employees": [
         {
+            "id": "253f3fa2-85e1-4821-85f5-6267d4355174",
             "fullName": "Ivan Ivanov",
             "photoURL": "https://i.pravatar.cc/200",
             "position": "software developer",
@@ -8,6 +9,7 @@
             "status": "active"
         },
         {
+            "id": "781b7509-6640-4cc2-bdc1-7040fe556143",
             "fullName": "Vera Petrova",
             "photoURL": "https://i.pravatar.cc/200",
             "position": "qa engineer",
@@ -15,6 +17,7 @@
             "status": "joining"
         },
         {
+            "id": "a5cdd336-4145-4747-9cbd-d88d37721392",
             "fullName": "Fedor Fedorov",
             "photoURL": "https://i.pravatar.cc/200",
             "position": "architect",
@@ -24,51 +27,56 @@
     ],
     "vacancies": [
         {
+            "id": "af18feed-fa15-4530-9130-6253eb88d67d",
             "position": "developer",
             "scheduleDays": "5x2",
             "scheduleShifts": "day",
             "quantity": 3,
             "comment": "Some comment goes here.",
             "publishedTimestamp" : "2021-04-15T10:00:00.000Z", 
-            "isClosed": "false"
+            "isClosed": false
         },
         {
+            "id": "047451ac-83f4-494f-add5-ffa012de018c",
             "position": "qa",
             "scheduleDays": "5x2",
             "scheduleShifts": "day",
             "quantity": 2,
             "comment": "Some other comment goes here.",
             "publishedTimestamp" : "2021-04-19T12:00:00.000Z", 
-            "isClosed": "false"
+            "isClosed": false
         },
         {
+            "id": "53b4225e-d7a7-435b-9651-72ee95ccc7cb",
             "position": "architect",
             "scheduleDays": "5x2",
             "scheduleShifts": "day",
             "quantity": 1,
             "comment": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a",
             "publishedTimestamp" : "2021-04-15T10:00:00.000Z", 
-            "isClosed": "true",
+            "isClosed": true,
             "closureReason": "fulfilled",
             "closedTimestamp" : "2021-04-20T11:00:00.000Z" 
         },
         {
+            "id": "005c50ed-4295-4b33-bab3-c16a1de6d0bd",
             "position": "support",
             "scheduleDays": "2x2",
             "scheduleShifts": "night",
             "quantity": 2,
             "comment": "Some comment for support position goes here.",
             "publishedTimestamp" : "2021-04-19T12:00:00.000Z", 
-            "isClosed": "false"
+            "isClosed": false
         },
         {
+            "id": "98f9277c-2314-4e6a-9c3b-7a2db63aabfb",
             "position": "manager",
             "scheduleDays": "5x2",
             "scheduleShifts": "day",
             "quantity": 1,
             "comment": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when a",
             "publishedTimestamp" : "2021-04-15T10:00:00.000Z", 
-            "isClosed": "true",
+            "isClosed": true,
             "closureReason": "fulfilled",
             "closedTimestamp" : "2021-04-20T11:00:00.000Z" 
         }

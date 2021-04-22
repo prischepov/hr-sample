@@ -4,11 +4,14 @@ import { Button, Container } from 'semantic-ui-react';
 import EmployerNavBar from '../EmployerNavBar';
 import VacanciesDashboard from './VacanciesDashboard';
 import VacancyForm from './VacancyForm';
+import { Vacancy } from '../../models/Vacancy'
+import VacancyDetails from './VacancyDetails';
 
 export default function VacanciesPage() {
 
-    const [vacancies, setVacancies] = useState([]);
-    const [editMode, setEditMode] = useState(false);
+    const [vacancies, setVacancies] = useState<Vacancy[]>([]);
+    const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | undefined>(undefined);
+    const [editMode, setEditMode] = useState<boolean>(false);
 
     useEffect(() => {
         axios.get('https://hr-sample-b3c2d-default-rtdb.firebaseio.com/vacancies.json')
@@ -18,15 +21,29 @@ export default function VacanciesPage() {
             })
     }, []);
 
+    function handleSelectVacancy(id: string) {
+        setSelectedVacancy(vacancies.find(item => item.id === id));
+    }
+
+    function handleCancelSelection() {
+        setSelectedVacancy(undefined);
+    }
+
     return (
         <Fragment>
             <EmployerNavBar/>
-            <Container>
-                <Button positive floated="right">
-                    Add vacancy
-                </Button>
-            </Container>
-            <VacanciesDashboard vacancies={vacancies}/>
+
+            <VacanciesDashboard 
+                vacancies={vacancies}
+                selectedVacancy={selectedVacancy}
+                handleSelectVacancy={handleSelectVacancy}/>
+
+            {selectedVacancy 
+                && <VacancyDetails 
+                    vacancy = {selectedVacancy}
+                    handleCancelSelection={handleCancelSelection}/>}
+
             <VacancyForm/>
         </Fragment>
-)}
+    )
+}
