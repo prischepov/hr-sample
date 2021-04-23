@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
 import EmployerNavBar from '../EmployerNavBar';
 import VacanciesDashboard from './VacanciesDashboard';
@@ -6,6 +5,7 @@ import VacancyForm from './VacancyForm';
 import { Vacancy } from '../../models/Vacancy'
 import VacancyDetails from './VacancyDetails';
 import {v4 as uuid} from 'uuid';
+import client from '../../common/api/client';
 
 export default function VacanciesPage() {
 
@@ -14,10 +14,8 @@ export default function VacanciesPage() {
     const [editMode, setEditMode] = useState<boolean>(false);
 
     useEffect(() => {
-        axios.get('https://hr-sample-b3c2d-default-rtdb.firebaseio.com/vacancies.json')
-            .then(response => {
-                console.log(response.data);
-                setVacancies(response.data);
+        client.Vacancies.list().then(response => {
+                setVacancies(response);
             })
     }, []);
 
