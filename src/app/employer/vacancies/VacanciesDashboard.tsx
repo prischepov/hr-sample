@@ -9,10 +9,11 @@ interface Props {
     editMode: boolean;
     handleSelectVacancy: (vacancyId: string) => void;
     handleTurnEditModeOn: (vacancyId: string | undefined) => void;
+    handleVacancyRemoval: (vacancyId: string) => void;
 }
 
 export default function VacanciesDashboard({ vacancies, selectedVacancy, editMode, 
-    handleSelectVacancy, handleTurnEditModeOn }: Props) {
+    handleSelectVacancy, handleTurnEditModeOn, handleVacancyRemoval }: Props) {
     return (
         <Fragment>
             { !selectedVacancy && !editMode && 
@@ -26,7 +27,8 @@ export default function VacanciesDashboard({ vacancies, selectedVacancy, editMod
                     <VacanciesList
                         vacancies={vacancies}
                         handleSelectVacancy={handleSelectVacancy} 
-                        handleTurnEditModeOn={handleTurnEditModeOn} />
+                        handleTurnEditModeOn={handleTurnEditModeOn} 
+                        handleVacancyRemoval={handleVacancyRemoval}/>
                 </Fragment>
             }
         </Fragment>

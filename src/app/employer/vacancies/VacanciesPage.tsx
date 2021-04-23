@@ -5,6 +5,7 @@ import VacanciesDashboard from './VacanciesDashboard';
 import VacancyForm from './VacancyForm';
 import { Vacancy } from '../../models/Vacancy'
 import VacancyDetails from './VacancyDetails';
+import {v4 as uuid} from 'uuid';
 
 export default function VacanciesPage() {
 
@@ -38,6 +39,18 @@ export default function VacanciesPage() {
         setEditMode(false);
     }
 
+    function handleVacancyFormSubmission(vacancy: Vacancy) {
+        vacancy.id 
+            ? setVacancies([...vacancies.filter(item => item.id !== vacancy.id), vacancy])
+            : setVacancies([...vacancies, {...vacancy, id: uuid()}]);
+        setEditMode(false);
+        setSelectedVacancy(vacancy);
+    }
+
+    function handleVacancyRemoval(vacancyId: string) {
+        setVacancies(vacancies.filter(item => item.id !== vacancyId));
+    }
+
     return (
         <Fragment>
             <EmployerNavBar/>
@@ -47,16 +60,19 @@ export default function VacanciesPage() {
                 selectedVacancy={selectedVacancy}
                 editMode={editMode}
                 handleSelectVacancy={handleSelectVacancy}
-                handleTurnEditModeOn={handleTurnEditModeOn}/>
+                handleTurnEditModeOn={handleTurnEditModeOn}
+                handleVacancyRemoval={handleVacancyRemoval}/>
 
             { selectedVacancy && !editMode
                 && <VacancyDetails 
-                    vacancy = {selectedVacancy}
-                    handleCancelVacancySelection={handleCancelVacancySelection}/>
+                        vacancy = {selectedVacancy}
+                        handleCancelVacancySelection={handleCancelVacancySelection}/>
             }
 
             { editMode 
-                && <VacancyForm selectedVacancy={selectedVacancy} handleTurnEditModeOff={handleTurnEditModeOff}/> 
+                && <VacancyForm selectedVacancy={selectedVacancy} 
+                        handleTurnEditModeOff={handleTurnEditModeOff} 
+                        handleVacancyFormSubmission={handleVacancyFormSubmission}/> 
             }
         </Fragment>
     )

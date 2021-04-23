@@ -5,9 +5,10 @@ interface Props {
     vacancies: Vacancy[];
     handleSelectVacancy: (vacancyId: string) => void;
     handleTurnEditModeOn: (vacancyId: string | undefined) => void;
+    handleVacancyRemoval: (vacancyId: string) => void;
 }
 
-export default function VacanciesList({vacancies, handleSelectVacancy, handleTurnEditModeOn}: Props) {
+export default function VacanciesList({vacancies, handleSelectVacancy, handleTurnEditModeOn, handleVacancyRemoval}: Props) {
     return (
         <Segment>
             <Item.Group divided>
@@ -25,6 +26,7 @@ export default function VacanciesList({vacancies, handleSelectVacancy, handleTur
                                 <div>{vacancy.comment}</div>
                             </Item.Description>
                             <Item.Extra>
+                                <Button floated="right" color="red" onClick={()=>{handleVacancyRemoval(vacancy.id)}}>Delete</Button>
                                 <Button floated="right" color="grey" onClick={()=>{handleTurnEditModeOn(vacancy.id)}}>Edit</Button>
                             </Item.Extra>
                         </Item.Content>
