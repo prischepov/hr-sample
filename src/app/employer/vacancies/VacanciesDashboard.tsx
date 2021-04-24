@@ -6,17 +6,18 @@ import VacanciesList from './VacanciesList'
 interface Props {
     vacancies: Vacancy[];
     selectedVacancy: Vacancy | undefined;
-    editMode: boolean;
+    isEditMode: boolean;
+    isSubmitting: boolean;
     handleSelectVacancy: (vacancyId: string) => void;
     handleTurnEditModeOn: (vacancyId: string | undefined) => void;
     handleVacancyRemoval: (vacancyId: string) => void;
 }
 
-export default function VacanciesDashboard({ vacancies, selectedVacancy, editMode, 
+export default function VacanciesDashboard({ vacancies, selectedVacancy, isEditMode, isSubmitting,
     handleSelectVacancy, handleTurnEditModeOn, handleVacancyRemoval }: Props) {
     return (
         <Fragment>
-            { !selectedVacancy && !editMode && 
+            { !selectedVacancy && !isEditMode && 
                 <Fragment>
                     <Container>
                         <Button positive floated="right" onClick={() => { handleTurnEditModeOn(undefined); }}>
@@ -26,6 +27,7 @@ export default function VacanciesDashboard({ vacancies, selectedVacancy, editMod
 
                     <VacanciesList
                         vacancies={vacancies}
+                        isSubmitting={isSubmitting}
                         handleSelectVacancy={handleSelectVacancy} 
                         handleTurnEditModeOn={handleTurnEditModeOn} 
                         handleVacancyRemoval={handleVacancyRemoval}/>

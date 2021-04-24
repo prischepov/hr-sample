@@ -1,23 +1,21 @@
 import { Vacancy } from './../../models/Vacancy';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://hr-sample-b3c2d-default-rtdb.firebaseio.com';
-
-const axiosInstance = axios.create({
-    baseURL: 'https://hr-sample-b3c2d-default-rtdb.firebaseio.com'
-});
-
-const responseBody = <T> (response: AxiosResponse<T>) => response.data;
-
-const verbs = {
-    get: <T> (url: string) => axiosInstance.get<T>(url).then(responseBody),
-    put: <T> (url: string, body: {}) => axiosInstance.put<T>(url).then(responseBody),
-    post: <T> (url: string, body: {}) => axiosInstance.post<T>(url).then(responseBody),
-    delete: <T> (url: string, id: string) => axiosInstance.delete<T>(url).then(responseBody)
-}
+axios.defaults.baseURL = 'https://hr-sample-b3c2d-default-rtdb.firebaseio.com';
 
 const Vacancies = {
-    list: () => verbs.get<Vacancy[]>('/vacancies.json')
+    list: async () => {
+        const response = await axios.get('/vacancies.json');
+        const vacancies = [] as Vacancy[];
+        for(let key in response.data){
+            vacancies.push({...response.data[key], id: key});
+        }
+        return vacancies;
+    },
+    details: (id: string) => axios.get(`/vacancies/${id}/.json`),
+    create: (vacancy: Vacancy) => axios.post('/vacancies.json', vacancy),
+    update: (vacancy: Vacancy) => axios.put(`/vacancies/${vacancy.id}/.json`, vacancy),
+    delete: (id: string) => axios.delete(`/vacancies/${id}/.json`)
 }
 
 const client = {

@@ -5,11 +5,13 @@ import { Vacancy } from "../../models/Vacancy";
 
 interface Props {
     selectedVacancy: Vacancy | undefined;
+    isSubmitting: boolean;
     handleTurnEditModeOff: () => void;
     handleVacancyFormSubmission: (Vacancy: Vacancy) => void;
 }
 
-export default function VacancyForm({selectedVacancy, handleTurnEditModeOff, handleVacancyFormSubmission}: Props) {
+export default function VacancyForm({selectedVacancy, isSubmitting, 
+        handleTurnEditModeOff, handleVacancyFormSubmission}: Props) {
 
     const initialState = selectedVacancy ?? {} as Vacancy;
     const [vacancy, setVacancy] = useState(initialState);
@@ -41,7 +43,7 @@ export default function VacancyForm({selectedVacancy, handleTurnEditModeOff, han
                 <FormInput inline placeholder="Quantity" type="number"
                     value={vacancy.quantity} name="quantity" onChange={handleInputChange}/>
                 <Form.TextArea placeholder='Comment' value={vacancy.comment} name="comment" onChange={handleInputChange}/>
-                <Button positive floated="right" type="submit">{vacancy.id ? "Save" : "Publish"}</Button> 
+                <Button positive loading={isSubmitting} floated="right" type="submit">{vacancy.id ? "Save" : "Publish"}</Button> 
                 <Button floated="right" type="button" onClick={handleTurnEditModeOff}>Cancel</Button> 
             </Form>
         </Segment>

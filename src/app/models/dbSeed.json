@@ -3,7 +3,7 @@
         {
             "id": "253f3fa2-85e1-4821-85f5-6267d4355174",
             "fullName": "Ivan Ivanov",
-            "photoURL": "https://i.pravatar.cc/200",
+            "photoURL": "https://i.pravatar.cc/200?img=52",
             "position": "software developer",
             "workSchedule": "fulltime",
             "status": "active"
@@ -11,7 +11,7 @@
         {
             "id": "781b7509-6640-4cc2-bdc1-7040fe556143",
             "fullName": "Vera Petrova",
-            "photoURL": "https://i.pravatar.cc/200",
+            "photoURL": "https://i.pravatar.cc/200?img=46",
             "position": "qa engineer",
             "workSchedule": "parttime",
             "status": "joining"
@@ -19,7 +19,7 @@
         {
             "id": "a5cdd336-4145-4747-9cbd-d88d37721392",
             "fullName": "Fedor Fedorov",
-            "photoURL": "https://i.pravatar.cc/200",
+            "photoURL": "https://i.pravatar.cc/200?img=65",
             "position": "architect",
             "workSchedule": "fulltime",
             "status": "leaving"

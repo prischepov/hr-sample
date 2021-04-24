@@ -1,14 +1,33 @@
+import { SyntheticEvent, useState } from "react";
 import { Button, Item, Segment } from "semantic-ui-react"
 import { Vacancy } from "../../models/Vacancy"
 
 interface Props {
     vacancies: Vacancy[];
+    isSubmitting: boolean;
     handleSelectVacancy: (vacancyId: string) => void;
     handleTurnEditModeOn: (vacancyId: string | undefined) => void;
     handleVacancyRemoval: (vacancyId: string) => void;
 }
 
-export default function VacanciesList({vacancies, handleSelectVacancy, handleTurnEditModeOn, handleVacancyRemoval}: Props) {
+export default function VacanciesList({vacancies, isSubmitting,
+        handleSelectVacancy, handleTurnEditModeOn, handleVacancyRemoval}: Props) {
+
+    const [vacancyIdToBeDeleted, setVacancyIdToBeDeleted] = useState<string>("");
+
+    function handleDeleteButtonClick(e: SyntheticEvent<HTMLButtonElement>, vacancyId: string) {
+        setVacancyIdToBeDeleted(e.currentTarget.name);
+        handleVacancyRemoval(vacancyId);
+    }
+
+    if(!vacancies.length) {
+        return (
+            <Segment>
+                No vacancies found
+            </Segment>
+        )
+    }
+    
     return (
         <Segment>
             <Item.Group divided>
@@ -26,7 +45,11 @@ export default function VacanciesList({vacancies, handleSelectVacancy, handleTur
                                 <div>{vacancy.comment}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button floated="right" color="red" onClick={()=>{handleVacancyRemoval(vacancy.id)}}>Delete</Button>
+                                <Button floated="right" color="red" 
+                                    content="Delete"
+                                    name={vacancy.id}
+                                    loading={isSubmitting && vacancyIdToBeDeleted === vacancy.id}
+                                    onClick={ (e)=>{handleDeleteButtonClick(e, vacancy.id)} }/>
                                 <Button floated="right" color="grey" onClick={()=>{handleTurnEditModeOn(vacancy.id)}}>Edit</Button>
                             </Item.Extra>
                         </Item.Content>
