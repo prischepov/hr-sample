@@ -14,7 +14,8 @@ const Vacancies = {
     },
     details: (id: string) => axios.get(`/vacancies/${id}/.json`),
     create: (vacancy: Vacancy) => axios.post('/vacancies.json', vacancy),
-    update: (vacancy: Vacancy) => axios.put(`/vacancies/${vacancy.id}/.json`, vacancy),
+    edit: (vacancy: Vacancy) => axios.put(`/vacancies/${vacancy.id}/.json`, vacancy),
+    // update: (vacancy: Vacancy) => axios.patch(`/vacancies/${vacancy.id}/.json`, vacancy),
     delete: (id: string) => axios.delete(`/vacancies/${id}/.json`)
 }
 

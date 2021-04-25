@@ -1,13 +1,14 @@
-import React from 'react'
 import { Button, Card, Image } from 'semantic-ui-react'
-import { Vacancy } from '../../models/Vacancy'
+import LoadingIndicator from '../../common/layout/LoadingIndicator';
+import { useStore } from '../../stores/store'
 
-interface Props {
-    vacancy: Vacancy;
-    handleCancelVacancySelection: () => void;
-}
+export default function VacancyDetails() {
 
-export default function VacancyDetails({vacancy, handleCancelVacancySelection} : Props) {
+    const {vacanciesStore} = useStore();
+    const vacancy = vacanciesStore.selectedVacancy;
+
+    if(!vacancy) return <LoadingIndicator />;
+
     return (
         <Card>
             <Card.Content>
@@ -23,7 +24,7 @@ export default function VacancyDetails({vacancy, handleCancelVacancySelection} :
                 <Card.Description>{vacancy.comment}</Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <Button basic color='grey' onClick={handleCancelVacancySelection}>
+                <Button basic color='grey' onClick={vacanciesStore.cancelVacancySelection}>
                     Back to list
                 </Button>
             </Card.Content>

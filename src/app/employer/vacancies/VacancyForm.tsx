@@ -1,23 +1,20 @@
+import { observer } from "mobx-react-lite";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { Button, Form, FormInput, FormSelect, Header, Segment } from "semantic-ui-react";
 import { POSITION_OPTIONS, SCHEDULE_DAYS_OPTIONS, SCHEDULE_SHIFT_OPTIONS as SCHEDULE_WORK_SHIFTS} from '../../models/Enums'
 import { Vacancy } from "../../models/Vacancy";
+import { useStore } from "../../stores/store";
 
-interface Props {
-    selectedVacancy: Vacancy | undefined;
-    isSubmitting: boolean;
-    handleTurnEditModeOff: () => void;
-    handleVacancyFormSubmission: (Vacancy: Vacancy) => void;
-}
+export default observer(function VacancyForm() {
 
-export default function VacancyForm({selectedVacancy, isSubmitting, 
-        handleTurnEditModeOff, handleVacancyFormSubmission}: Props) {
+    const {vacanciesStore} =  useStore();
+    const {createVacancy, editVacancy} = vacanciesStore;
 
-    const initialState = selectedVacancy ?? {} as Vacancy;
+    const initialState = vacanciesStore.selectedVacancy ?? {} as Vacancy;
     const [vacancy, setVacancy] = useState(initialState);
 
     function handleSubmit() {
-        handleVacancyFormSubmission(vacancy);
+        vacancy.id ? editVacancy(vacancy) : createVacancy(vacancy);
     }
 
     function handleSelectionChange(_event: SyntheticEvent<HTMLElement>, data: any) {
@@ -43,9 +40,9 @@ export default function VacancyForm({selectedVacancy, isSubmitting,
                 <FormInput inline placeholder="Quantity" type="number"
                     value={vacancy.quantity} name="quantity" onChange={handleInputChange}/>
                 <Form.TextArea placeholder='Comment' value={vacancy.comment} name="comment" onChange={handleInputChange}/>
-                <Button positive loading={isSubmitting} floated="right" type="submit">{vacancy.id ? "Save" : "Publish"}</Button> 
-                <Button floated="right" type="button" onClick={handleTurnEditModeOff}>Cancel</Button> 
+                <Button positive loading={vacanciesStore.isSubmitting} floated="right" type="submit">{vacancy.id ? "Save" : "Publish"}</Button> 
+                <Button floated="right" type="button" onClick={vacanciesStore.closeForm}>Cancel</Button> 
             </Form>
         </Segment>
     )
-}
+})

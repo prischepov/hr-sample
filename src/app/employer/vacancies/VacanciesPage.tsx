@@ -1,97 +1,36 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import EmployerNavBar from '../EmployerNavBar';
 import VacanciesDashboard from './VacanciesDashboard';
 import VacancyForm from './VacancyForm';
-import { Vacancy } from '../../models/Vacancy'
 import VacancyDetails from './VacancyDetails';
-import client from '../../common/api/client';
 import LoadingIndicator from '../../common/layout/LoadingIndicator';
+import { useStore } from '../../stores/store';
+import { observer } from 'mobx-react-lite';
 
-export default function VacanciesPage() {
+function VacanciesPage() {
 
-    const [vacancies, setVacancies] = useState<Vacancy[]>([]);
-    const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | undefined>(undefined);
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const {vacanciesStore} = useStore();
 
     useEffect(() => {
-        client.Vacancies.list().then(response => {
-                setVacancies(response);
-                setIsLoading(false);
-            });
-    }, []);
+        vacanciesStore.getVacanciesList();
+    }, [vacanciesStore]);
 
-    function handleSelectVacancy(vacancyId: string) {
-        setSelectedVacancy(vacancies.find(item => item.id === vacancyId));
-    }
-
-    function handleCancelVacancySelection() {
-        setSelectedVacancy(undefined);
-    }
-
-    function handleTurnEditModeOn(vacancyId: string | undefined) {
-        vacancyId ? handleSelectVacancy(vacancyId) : handleCancelVacancySelection();
-        setIsEditMode(true);
-    }
-
-    function handleTurnEditModeOff() {
-        handleCancelVacancySelection()
-        setIsEditMode(false);
-    }
-
-    async function handleVacancyFormSubmission(vacancy: Vacancy) {
-        setIsSubmitting(true);
-        if(vacancy.id) {    
-            await client.Vacancies.update(vacancy);
-            setVacancies([...vacancies.filter(item => item.id !== vacancy.id), vacancy]);
-        } else {
-            vacancy.isClosed = false;
-            vacancy.publishedTimestamp = new Date();
-            await client.Vacancies.create(vacancy);
-            setVacancies([...vacancies, vacancy]);
-        }
-        setIsSubmitting(false);
-        setIsEditMode(false);
-        setSelectedVacancy(vacancy);
-    }
-
-    async function handleVacancyRemoval(vacancyId: string) {
-        setIsSubmitting(true);
-        await client.Vacancies.delete(vacancyId);
-        setVacancies(vacancies.filter(item => item.id !== vacancyId));
-        setIsSubmitting(false);
-    }
-
-    if(isLoading) {
-        return <LoadingIndicator text="Loading..."/>
+    if(vacanciesStore.isLoading) {
+        return <LoadingIndicator />
     }
 
     return (
         <Fragment>
             <EmployerNavBar/>
 
-            <VacanciesDashboard 
-                vacancies={vacancies}
-                selectedVacancy={selectedVacancy}
-                isEditMode={isEditMode}
-                isSubmitting={isSubmitting}
-                handleSelectVacancy={handleSelectVacancy}
-                handleTurnEditModeOn={handleTurnEditModeOn}
-                handleVacancyRemoval={handleVacancyRemoval}/>
+            <VacanciesDashboard />
 
-            { selectedVacancy && !isEditMode
-                && <VacancyDetails 
-                        vacancy = {selectedVacancy}
-                        handleCancelVacancySelection={handleCancelVacancySelection}/>
-            }
+            { vacanciesStore.selectedVacancy && !vacanciesStore.isEditMode && <VacancyDetails /> }
 
-            { isEditMode 
-                && <VacancyForm selectedVacancy={selectedVacancy} 
-                        isSubmitting={isSubmitting}
-                        handleTurnEditModeOff={handleTurnEditModeOff} 
-                        handleVacancyFormSubmission={handleVacancyFormSubmission}/> 
-            }
+            { vacanciesStore.isEditMode && <VacancyForm /> }
+
         </Fragment>
     )
 }
+
+export default observer(VacanciesPage);

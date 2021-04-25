@@ -1,26 +1,20 @@
+import { observer } from "mobx-react-lite";
 import { SyntheticEvent, useState } from "react";
 import { Button, Item, Segment } from "semantic-ui-react"
 import { Vacancy } from "../../models/Vacancy"
+import { useStore } from "../../stores/store";
 
-interface Props {
-    vacancies: Vacancy[];
-    isSubmitting: boolean;
-    handleSelectVacancy: (vacancyId: string) => void;
-    handleTurnEditModeOn: (vacancyId: string | undefined) => void;
-    handleVacancyRemoval: (vacancyId: string) => void;
-}
+export default observer(function VacanciesList() {
 
-export default function VacanciesList({vacancies, isSubmitting,
-        handleSelectVacancy, handleTurnEditModeOn, handleVacancyRemoval}: Props) {
-
+    const {vacanciesStore} = useStore();
     const [vacancyIdToBeDeleted, setVacancyIdToBeDeleted] = useState<string>("");
 
-    function handleDeleteButtonClick(e: SyntheticEvent<HTMLButtonElement>, vacancyId: string) {
+    function handleDeleteButtonClick(e: SyntheticEvent<HTMLButtonElement>, id: string) {
         setVacancyIdToBeDeleted(e.currentTarget.name);
-        handleVacancyRemoval(vacancyId);
+        vacanciesStore.deleteVacancy(id);
     }
 
-    if(!vacancies.length) {
+    if(!vacanciesStore.vacancies.length) {
         return (
             <Segment>
                 No vacancies found
@@ -31,11 +25,11 @@ export default function VacanciesList({vacancies, isSubmitting,
     return (
         <Segment>
             <Item.Group divided>
-                {vacancies.map((vacancy: Vacancy, index: number) => {
+                {vacanciesStore.vacancies.map((vacancy: Vacancy, index: number) => {
                     return <Item key={index}>
                         <Item.Image size="tiny" src={`../../assets/${vacancy.position}.png`} />
                          <Item.Content>
-                            <Item.Header as="a" onClick={() => handleSelectVacancy(vacancy.id)}>
+                            <Item.Header as="a" onClick={() => vacanciesStore.setSelectedVacancy(vacancy.id)}>
                                 {vacancy.position}
                             </Item.Header>
                             <Item.Description>
@@ -48,9 +42,9 @@ export default function VacanciesList({vacancies, isSubmitting,
                                 <Button floated="right" color="red" 
                                     content="Delete"
                                     name={vacancy.id}
-                                    loading={isSubmitting && vacancyIdToBeDeleted === vacancy.id}
-                                    onClick={ (e)=>{handleDeleteButtonClick(e, vacancy.id)} }/>
-                                <Button floated="right" color="grey" onClick={()=>{handleTurnEditModeOn(vacancy.id)}}>Edit</Button>
+                                    loading={vacanciesStore.isSubmitting && vacancyIdToBeDeleted === vacancy.id}
+                                    onClick={ (e) => {handleDeleteButtonClick(e, vacancy.id)} }/>
+                                <Button floated="right" color="grey" onClick={()=>{vacanciesStore.openForm(vacancy.id)}}>Edit</Button>
                             </Item.Extra>
                         </Item.Content>
                     </Item>
@@ -58,4 +52,4 @@ export default function VacanciesList({vacancies, isSubmitting,
         </Item.Group>
       </Segment>
     )
-}
+})
