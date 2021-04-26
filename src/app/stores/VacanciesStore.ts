@@ -22,7 +22,8 @@ export default class VacanciesStore {
         this.isSubmitting = state;
     }
 
-    getVacanciesList = async () => {
+    loadVacanciesList = async () => {
+        this.setLoadingState(true);
         try {
             const vacancies = await client.Vacancies.list();
             runInAction(() => {
@@ -35,21 +36,19 @@ export default class VacanciesStore {
         }
     }
 
-    setSelectedVacancy = (id: string) => {
-        this.selectedVacancy = this.vacancies.find(vacancy => vacancy.id === id);
-    }
-
-    cancelVacancySelection = () => {
-        this.selectedVacancy = undefined;
-    }
-
-    openForm = (id?: string) => {
-        id ? this.setSelectedVacancy(id) : this.cancelVacancySelection();
-        this.isEditMode = true;
-    }
-
-    closeForm = () => {
-        this.isEditMode = false;
+    loadVacancy = async (id: string) => {
+        this.setLoadingState(true);
+        try {
+            const vacancy = await client.Vacancies.details(id);
+            runInAction(() => {
+                this.selectedVacancy = vacancy;
+                this.setLoadingState(false);
+            });
+            return vacancy;
+        } catch (error) {
+            console.log(error);
+            this.setLoadingState(false);
+        }
     }
 
     createVacancy = async (vacancy: Vacancy) => {

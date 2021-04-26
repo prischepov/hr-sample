@@ -12,7 +12,10 @@ const Vacancies = {
         }
         return vacancies;
     },
-    details: (id: string) => axios.get(`/vacancies/${id}/.json`),
+    details: async (id: string) => {
+        const response = await axios.get<Vacancy>(`/vacancies/${id}/.json`);
+        return {...response.data, id: id} as Vacancy;
+    },
     create: (vacancy: Vacancy) => axios.post('/vacancies.json', vacancy),
     edit: (vacancy: Vacancy) => axios.put(`/vacancies/${vacancy.id}/.json`, vacancy),
     // update: (vacancy: Vacancy) => axios.patch(`/vacancies/${vacancy.id}/.json`, vacancy),

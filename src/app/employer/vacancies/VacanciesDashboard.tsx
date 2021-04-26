@@ -1,25 +1,21 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
+import { Link } from 'react-router-dom';
 import { Container, Button } from 'semantic-ui-react'
-import { useStore } from '../../stores/store';
 import VacanciesList from './VacanciesList'
 
 export default function VacanciesDashboard() {
 
-    const {vacanciesStore} = useStore();
-
     return (
         <Fragment>
-            { !vacanciesStore.selectedVacancy && !vacanciesStore.isEditMode && 
                 <Fragment>
                     <Container>
-                        <Button positive floated="right" onClick={() => { vacanciesStore.openForm() }}>
-                            Add vacancy
-                        </Button>
+                        <Button content="Add vacancy"
+                            as={Link} to="/employer/vacancies/create"
+                            positive floated="right" />
                     </Container>
 
                     <VacanciesList />
                 </Fragment>
-            }
         </Fragment>
     )
 }

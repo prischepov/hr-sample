@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Item, Segment } from "semantic-ui-react"
 import { Vacancy } from "../../models/Vacancy"
 import { useStore } from "../../stores/store";
@@ -27,11 +28,9 @@ export default observer(function VacanciesList() {
             <Item.Group divided>
                 {vacanciesStore.vacancies.map((vacancy: Vacancy, index: number) => {
                     return <Item key={index}>
-                        <Item.Image size="tiny" src={`../../assets/${vacancy.position}.png`} />
+                        <Item.Image size="tiny" src={`${window.location.origin}/assets/${vacancy.position}.png`} />
                          <Item.Content>
-                            <Item.Header as="a" onClick={() => vacanciesStore.setSelectedVacancy(vacancy.id)}>
-                                {vacancy.position}
-                            </Item.Header>
+                            <Item.Header as={Link} to={`/employer/vacancies/view/${vacancy.id}`} content={vacancy.position} />
                             <Item.Description>
                                 <div>{vacancy.scheduleDays}</div>
                                 <div>{vacancy.scheduleShifts}</div>
@@ -44,7 +43,9 @@ export default observer(function VacanciesList() {
                                     name={vacancy.id}
                                     loading={vacanciesStore.isSubmitting && vacancyIdToBeDeleted === vacancy.id}
                                     onClick={ (e) => {handleDeleteButtonClick(e, vacancy.id)} }/>
-                                <Button floated="right" color="grey" onClick={()=>{vacanciesStore.openForm(vacancy.id)}}>Edit</Button>
+                                <Button content="Edit"
+                                    as={Link} to={`/employer/vacancies/edit/${vacancy.id}`}
+                                    floated="right" color="grey" />
                             </Item.Extra>
                         </Item.Content>
                     </Item>

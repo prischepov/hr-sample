@@ -6,12 +6,13 @@ interface Store {
 }
 
 export const store: Store = {
-    vacanciesStore: new VacanciesStore()
+    vacanciesStore: new VacanciesStore(),
+    // TODO: add other stores
 } 
 
 export const StoreContext = createContext(store);
 
-// pack stores in custom React hook
+// packing stores in custom React hook
 export function useStore() {
     return useContext(StoreContext)
 }
