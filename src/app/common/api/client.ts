@@ -1,8 +1,13 @@
-import { firebaseConfig } from './../../config/firebase';
+import { firebaseAuth, firebaseConfig } from './../../config/firebase';
 import { Vacancy } from './../../models/Vacancy';
 import axios from 'axios';
 
+
 axios.defaults.baseURL = firebaseConfig.databaseURL;
+
+const Auth = {
+    signIn: (email: string, password: string) => firebaseAuth.signInWithEmailAndPassword(email, password)
+}
 
 const Vacancies = {
     list: async () => {
@@ -24,6 +29,7 @@ const Vacancies = {
 }
 
 const client = {
+    Auth,
     Vacancies
 }
 

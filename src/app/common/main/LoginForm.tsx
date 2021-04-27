@@ -1,31 +1,80 @@
   
-import { Button, Container, Form, Grid, Header, Image } from 'semantic-ui-react'
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { Button, Container, Form, Grid, Header, Image, Message } from "semantic-ui-react"
+import client from "../api/client";
 
-const LoginForm = () => (
-  <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h2' color='teal' textAlign='center'>
-        <Image src={`${window.location.origin}/assets/logo.png`} /> 
-        Welcome to HR-Sample
-      </Header>
-      <Form size='large'>
-        <Container>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='Password'
-            type='password'
-          />
+export default function LoginForm() {
 
-          <Button color='teal' fluid size='large'>
-            Login
-          </Button>
-        </Container>
-      </Form>
-    </Grid.Column>
-  </Grid>
-)
+  const history = useHistory();
 
-export default LoginForm
+  const [authenticating, setAuthenticating] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  function handleSignIn() {
+    setAuthenticating(true);
+
+    client.Auth.signIn(email, password)
+    .then(response => {
+        setAuthenticating(false);
+
+        // TODO: use users DB for persisting and resolving roles
+        const role = email.split('@')[0];
+        if(!role) {
+          setError('Role is not resolved');
+        }
+        if(role === 'employer') { 
+          history.push('/employer/personnel');
+        }else{
+          history.push('/recruiter/home');
+        }
+    })
+    .catch(error => {
+        setAuthenticating(false);
+        setError(error.message);
+    });
+}
+
+  return (
+    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2" color="teal" textAlign="center">
+          <Image src={`${window.location.origin}/assets/logo.png`} /> 
+          Welcome to HR-Sample
+        </Header>
+        <Form size="large" onSubmit={handleSignIn}>
+          <Container>
+            <Form.Input
+              id="email" 
+              name="email"
+              type="email"
+              value={email}
+              fluid icon="user" iconPosition="left"
+              placeholder="Email Address"
+              onChange={event => setEmail(event.target.value)}
+            />
+            <Form.Input
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              fluid icon="lock" iconPosition="left"
+              placeholder="Password"
+              onChange={event => setPassword(event.target.value)}
+              autoComplete="off"
+            />
+
+            <Button 
+              content="Login" 
+              loading={authenticating}
+              color="teal" fluid size="large"
+            />
+          </Container>
+          {error && <Message color='red'>{error}</Message>}
+        </Form>
+      </Grid.Column>
+    </Grid>
+  )
+}

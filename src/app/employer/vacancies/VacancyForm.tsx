@@ -21,7 +21,8 @@ export default observer(function VacancyForm() {
 
     useEffect(() => {
         if(id) {
-            loadVacancy(id).then((vacancy) => {
+            loadVacancy(id)
+            .then((vacancy) => {
                 setVacancy(vacancy!);
             });
         }
@@ -29,11 +30,13 @@ export default observer(function VacancyForm() {
 
     function handleSubmit() {
         if(vacancy.id) {
-            editVacancy(vacancy).then(() => {
+            editVacancy(vacancy)
+            .then(() => {
                 history.push(`/employer/vacancies/view/${vacancy.id}`);
             });
         } else {
-            createVacancy(vacancy).then(() => {
+            createVacancy(vacancy)
+            .then(() => {
                 history.push("/employer/vacancies");
             });
         }   
@@ -69,10 +72,16 @@ export default observer(function VacancyForm() {
                     <FormInput inline placeholder="Quantity" type="number"
                         value={vacancy.quantity} name="quantity" onChange={handleInputChange}/>
                     <Form.TextArea placeholder='Comment' value={vacancy.comment} name="comment" onChange={handleInputChange}/>
-                    <Button positive loading={vacanciesStore.isSubmitting} floated="right" type="submit">{vacancy.id ? "Save" : "Publish"}</Button> 
-                    <Button content="Cancel"
+                    <Button positive
+                        content={vacancy.id ? "Save" : "Publish"}
+                        loading={vacanciesStore.isSubmitting} 
+                        floated="right" 
+                        type="submit" />
+                    <Button 
+                        content="Cancel"
                         as={Link} to="/employer/vacancies" 
-                        floated="right" type="button" />
+                        floated="right" 
+                        type="button" />
                 </Form>
             </Segment>
         </Fragment>
