@@ -14,18 +14,18 @@ export default observer(function VacancyForm() {
     const history = useHistory();
     const {vacanciesStore} =  useStore();
     const {id} = useParams<{id: string}>();
-    const {createVacancy, editVacancy} = vacanciesStore;
+    const {createVacancy, editVacancy, loadVacancy} = vacanciesStore;
 
-    const initialState = {} as Vacancy;
+    const initialState = {...{}, quantity: 0} as Vacancy;
     const [vacancy, setVacancy] = useState(initialState);
 
     useEffect(() => {
         if(id) {
-            vacanciesStore.loadVacancy(id).then((vacancy) => {
+            loadVacancy(id).then((vacancy) => {
                 setVacancy(vacancy!);
             });
         }
-    }, [id, vacanciesStore.loadVacancy])
+    }, [id, loadVacancy])
 
     function handleSubmit() {
         if(vacancy.id) {
