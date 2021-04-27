@@ -5,8 +5,6 @@ import client from '../common/api/client';
 export default class VacanciesStore {
 
     vacancies: Vacancy[] = [];
-    selectedVacancy: Vacancy | undefined = undefined;
-    isEditMode: boolean = false;
     isLoading: boolean = true;
     isSubmitting: boolean = false;
 
@@ -41,7 +39,6 @@ export default class VacanciesStore {
         try {
             const vacancy = await client.Vacancies.details(id);
             runInAction(() => {
-                this.selectedVacancy = vacancy;
                 this.setLoadingState(false);
             });
             return vacancy;
@@ -59,8 +56,6 @@ export default class VacanciesStore {
             await client.Vacancies.create(vacancy);
             runInAction(() => {
                 this.vacancies.push(vacancy);
-                this.selectedVacancy = vacancy;
-                this.isEditMode = false;
                 this.setisSubmittingState(false);
             });
         } catch (error) {
@@ -75,8 +70,6 @@ export default class VacanciesStore {
             await client.Vacancies.edit(vacancy);
             runInAction(() => {
                 this.vacancies = [...this.vacancies.filter(v => v.id !== vacancy.id), vacancy];
-                this.selectedVacancy = vacancy;
-                this.isEditMode = false;
                 this.setisSubmittingState(false);
             });
         } catch (error) {

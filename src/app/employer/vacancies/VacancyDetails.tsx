@@ -1,23 +1,26 @@
 import { observer } from 'mobx-react-lite';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Card, Container, Image } from 'semantic-ui-react'
 import LoadingIndicator from '../../common/layout/LoadingIndicator';
+import { Vacancy } from '../../models/Vacancy';
 import { useStore } from '../../stores/store'
 import EmployerNavBar from '../EmployerNavBar';
 
 export default observer (function VacancyDetails() {
 
     const {vacanciesStore} = useStore();
+    const initialState = {} as Vacancy;
+    const [vacancy, setVacancy] = useState(initialState);
     const {id} = useParams<{id: string}>();
 
     useEffect(() => {
         if(id) {
-            vacanciesStore.loadVacancy(id);
+            vacanciesStore.loadVacancy(id).then((vacancy) => {
+                setVacancy(vacancy!);
+            });
         }
-    }, [id, vacanciesStore.loadVacancy])
-
-    const vacancy = vacanciesStore.selectedVacancy;
+    }, [id, vacanciesStore.loadVacancy]);
 
     if(vacanciesStore.isLoading || !vacancy) return <LoadingIndicator />;
 
