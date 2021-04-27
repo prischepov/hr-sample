@@ -1,7 +1,8 @@
+import { firebaseConfig } from './../../config/firebase';
 import { Vacancy } from './../../models/Vacancy';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://hr-sample-b3c2d-default-rtdb.firebaseio.com';
+axios.defaults.baseURL = firebaseConfig.databaseURL;
 
 const Vacancies = {
     list: async () => {

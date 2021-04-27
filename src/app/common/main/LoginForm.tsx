@@ -1,11 +1,12 @@
   
-import { Button, Container, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Button, Container, Form, Grid, Header, Image } from 'semantic-ui-react'
 
 const LoginForm = () => (
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>
-        <Image src={`${window.location.origin}/assets/logo.png`} /> Log-in to your account
+        <Image src={`${window.location.origin}/assets/logo.png`} /> 
+        Welcome to HR-Sample
       </Header>
       <Form size='large'>
         <Container>
