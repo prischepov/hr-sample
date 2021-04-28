@@ -6,7 +6,8 @@ import axios from 'axios';
 axios.defaults.baseURL = firebaseConfig.databaseURL;
 
 const Auth = {
-    signIn: (email: string, password: string) => firebaseAuth.signInWithEmailAndPassword(email, password)
+    signIn: (email: string, password: string) => firebaseAuth.signInWithEmailAndPassword(email, password),
+    signOut: () => firebaseAuth.signOut()
 }
 
 const Vacancies = {

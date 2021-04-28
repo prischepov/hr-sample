@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Container, Form, Grid, Header, Image, Message } from "semantic-ui-react"
-import client from "../api/client";
+import { useStore } from "../../stores/store";
 
 export default function LoginForm() {
 
   const history = useHistory();
+  const {userStore} = useStore();
 
   const [authenticating, setAuthenticating] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -16,7 +17,7 @@ export default function LoginForm() {
   function handleSignIn() {
     setAuthenticating(true);
 
-    client.Auth.signIn(email, password)
+    userStore.signIn(email, password)
     .then(response => {
         setAuthenticating(false);
 

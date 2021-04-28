@@ -13,6 +13,7 @@ export interface IRoute {
     protected: boolean;
 }
 
+// TODO: use this single routes collection all over the app
 const routes: IRoute[] = [
     {
         path: '/',
