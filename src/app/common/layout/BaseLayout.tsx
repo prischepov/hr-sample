@@ -5,10 +5,11 @@ interface Props {
     children: ReactNode
 }
 
-const BaseLayout = ( {children}: Props) => (
-    <div className="content_wrapper">
-        {children}
-    </div>
-)
-
-export default BaseLayout
+export default function BaseLayout({children}: Props){
+    
+    return (
+        <div className="content_wrapper">
+            {children}
+        </div>
+    )
+}
