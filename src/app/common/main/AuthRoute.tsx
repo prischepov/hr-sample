@@ -18,7 +18,7 @@ export default observer(function AuthRoute({children} : Props) {
     {
         return <Redirect to="/" />;
     }
-    return (
+    return (  
         <Fragment>{children}</Fragment>
     );
 })
