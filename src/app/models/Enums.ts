@@ -1,9 +1,16 @@
+import { Employee } from './Employee';
 export enum Positions {
   Developer = 'developer',
   QA = 'qa',
   Architect = 'architect',
   Manager = 'manager',
   Support = 'support'
+}
+
+export enum EmployeeStatus {
+  Active = 'active',
+  Joining = 'joining',
+  Leaving = 'leaving'
 }
 
 export enum ScheduleDays {
