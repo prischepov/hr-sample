@@ -1,7 +1,7 @@
   
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Container, Form, Grid, Header, Image, Message } from "semantic-ui-react"
+import { Button, Container, Form, Grid, Header, Icon, Message } from "semantic-ui-react"
 import { useStore } from "../../stores/store";
 
 export default function LoginForm() {
@@ -42,7 +42,7 @@ export default function LoginForm() {
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
-          <Image src={`${window.location.origin}/assets/logo.png`} /> 
+          <Icon name="cogs" />
           Welcome to HR-Sample
         </Header>
         <Form size="large" onSubmit={handleSignIn}>

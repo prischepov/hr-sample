@@ -1,5 +1,5 @@
 import { Link, NavLink, useHistory } from 'react-router-dom'
-import { Menu } from 'semantic-ui-react'
+import { Icon, Menu } from 'semantic-ui-react'
 import { useStore } from '../stores/store';
 
 export default function EmployerNavBar() {
@@ -15,7 +15,7 @@ export default function EmployerNavBar() {
     return (
         <Menu>
             <Menu.Item as={Link} to="/employer/personnel" header>
-                <img src={`${window.location.origin}/assets/logo.png`} alt="logo"/>
+                <Icon name="cogs" size="large"/>
                 HR Sample
             </Menu.Item>
             <Menu.Item as={NavLink} to="/employer/personnel" name="Personnel"/>
