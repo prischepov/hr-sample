@@ -2,6 +2,7 @@ import { firebaseAuth, firebaseConfig } from './../../config/firebase';
 import { Vacancy } from './../../models/Vacancy';
 import axios from 'axios';
 import { Employee } from '../../models/Employee';
+import { EmployeeStatus } from '../../models/Enums';
 
 
 axios.defaults.baseURL = firebaseConfig.databaseURL;
@@ -19,7 +20,8 @@ const Personnel = {
             employees.push({...response.data[key], id: key});
         }
         return employees;
-    }
+    },
+    patchEmployeeStatus: async(id: string) =>  await axios.patch(`/employees/${id}/.json`, {status: EmployeeStatus.Leaving})
 }
 
 const Vacancies = {

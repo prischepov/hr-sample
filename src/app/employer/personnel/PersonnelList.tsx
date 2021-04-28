@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { Fragment } from "react"
+import { Fragment, SyntheticEvent, useState } from "react"
 import { Button, Icon, Item, Label, Segment, SemanticCOLORS } from "semantic-ui-react"
 import { Employee } from "../../models/Employee"
 import { EmployeeStatus, ScheduleShifts } from "../../models/Enums"
@@ -8,6 +8,12 @@ import { useStore } from "../../stores/store"
 export default observer(function PersonnelList() {
 
     const {personnelStore} = useStore();
+    const [employeeToBeSuspended, setEmployeeToBeSuspended] = useState<string>("");
+
+    function handleSuspendButtonClick(e: SyntheticEvent<HTMLButtonElement>, id: string) {
+        setEmployeeToBeSuspended(e.currentTarget.name);
+        personnelStore.suspendEmployee(id);
+    }
 
     function resolveStatusLabelColor(status: EmployeeStatus): SemanticCOLORS {
         switch (status) {
@@ -18,6 +24,14 @@ export default observer(function PersonnelList() {
             default:
                 return "green";
         }
+    }
+
+    if(!personnelStore.employees.length) {
+        return (
+            <Segment>
+                No employees found
+            </Segment>
+        )
     }
 
     return (
@@ -42,7 +56,16 @@ export default observer(function PersonnelList() {
                     <div>Working schedule:</div>
                     <span><Icon name="calendar" />{employee.scheduleDays}</span>
                     <span><Icon name={employee.scheduleShifts === ScheduleShifts.Day ? "sun" : "moon"}/>{employee.scheduleShifts}</span>
-                    {employee.status === EmployeeStatus.Active && <Button floated="right" icon="close" content="Suspend" color="grey"/>}
+                    {employee.status === EmployeeStatus.Active 
+                        && <Button 
+                            content="Suspend" 
+                            floated="right" 
+                            icon="close" 
+                            color="grey"
+                            name={employee.id}
+                            loading={personnelStore.isSubmitting && employeeToBeSuspended === employee.id}
+                            onClick={ (e) => {handleSuspendButtonClick(e, employee.id)} }/>
+                    }
                 </Segment>
             </Segment.Group>
             })}
