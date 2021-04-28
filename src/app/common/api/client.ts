@@ -1,6 +1,7 @@
 import { firebaseAuth, firebaseConfig } from './../../config/firebase';
 import { Vacancy } from './../../models/Vacancy';
 import axios from 'axios';
+import { Employee } from '../../models/Employee';
 
 
 axios.defaults.baseURL = firebaseConfig.databaseURL;
@@ -8,6 +9,17 @@ axios.defaults.baseURL = firebaseConfig.databaseURL;
 const Auth = {
     signIn: (email: string, password: string) => firebaseAuth.signInWithEmailAndPassword(email, password),
     signOut: () => firebaseAuth.signOut()
+}
+
+const Personnel = {
+    list: async () => {
+        const response = await axios.get('/employees.json');
+        const employees = [] as Employee[];
+        for(let key in response.data){
+            employees.push({...response.data[key], id: key});
+        }
+        return employees;
+    }
 }
 
 const Vacancies = {
@@ -31,6 +43,7 @@ const Vacancies = {
 
 const client = {
     Auth,
+    Personnel,
     Vacancies
 }
 

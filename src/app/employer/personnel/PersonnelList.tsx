@@ -1,13 +1,13 @@
+import { observer } from "mobx-react-lite"
 import { Fragment } from "react"
 import { Button, Icon, Item, Label, Segment, SemanticCOLORS } from "semantic-ui-react"
 import { Employee } from "../../models/Employee"
 import { EmployeeStatus, ScheduleShifts } from "../../models/Enums"
+import { useStore } from "../../stores/store"
 
-interface Props {
-    employees: Employee[];
-}
+export default observer(function PersonnelList() {
 
-export default function PersonnelList({employees}: Props) {
+    const {personnelStore} = useStore();
 
     function resolveStatusLabelColor(status: EmployeeStatus): SemanticCOLORS {
         switch (status) {
@@ -22,7 +22,7 @@ export default function PersonnelList({employees}: Props) {
 
     return (
         <Fragment>
-            {employees.map((employee: Employee) => {
+            {personnelStore.employees.map((employee: Employee) => {
             return <Segment.Group key={employee.id}>
                 <Segment>
                     <Item.Group>
@@ -46,23 +46,6 @@ export default function PersonnelList({employees}: Props) {
                 </Segment>
             </Segment.Group>
             })}
-        </Fragment>       
-    //     <Segment>
-    //         <Item.Group divided>
-    //             {employees.map((employee: Employee, index: number) => {
-    //                 return <Item key={index}>
-    //                     <Item.Image size='small' circular src={employee.photoURL} />
-    //                     <Item.Content>
-    //                         <Item.Header>{employee.fullName}</Item.Header>
-    //                         <Item.Description>
-    //                             <div>{employee.position}</div>
-    //                             <div>{employee.workSchedule}</div>
-    //                             <div>{employee.status}</div>
-    //                         </Item.Description>
-    //                     </Item.Content>                    
-    //                 </Item>
-    //             })}
-    //     </Item.Group>
-    //   </Segment>
+        </Fragment>
     )
-}
+})

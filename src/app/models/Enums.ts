@@ -1,4 +1,3 @@
-import { Employee } from './Employee';
 export enum Positions {
   Developer = 'developer',
   QA = 'qa',

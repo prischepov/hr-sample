@@ -1,27 +1,35 @@
 {
     "employees": [
         {
-            "id": "253f3fa2-85e1-4821-85f5-6267d4355174",
             "fullName": "Ivan Ivanov",
             "photoURL": "https://i.pravatar.cc/200?img=52",
             "position": "software developer",
-            "workSchedule": "fulltime",
+            "scheduleDays": "5x2",
+            "scheduleShifts": "day",
             "status": "active"
         },
         {
-            "id": "781b7509-6640-4cc2-bdc1-7040fe556143",
+            "fullName": "Fedor Fedorov",
+            "photoURL": "https://i.pravatar.cc/200?img=11",
+            "position": "support",
+            "scheduleDays": "2x2",
+            "scheduleShifts": "night",
+            "status": "active"
+        },
+        {
             "fullName": "Vera Petrova",
             "photoURL": "https://i.pravatar.cc/200?img=46",
             "position": "qa engineer",
-            "workSchedule": "parttime",
+            "scheduleDays": "5x2",
+            "scheduleShifts": "day",
             "status": "joining"
         },
         {
-            "id": "a5cdd336-4145-4747-9cbd-d88d37721392",
-            "fullName": "Fedor Fedorov",
-            "photoURL": "https://i.pravatar.cc/200?img=65",
+            "fullName": "Daria Ivanova",
+            "photoURL": "https://i.pravatar.cc/200?img=5",
             "position": "architect",
-            "workSchedule": "fulltime",
+            "scheduleDays": "5x2",
+            "scheduleShifts": "day",
             "status": "leaving"
         }
     ],

@@ -5,7 +5,7 @@ import LoadingIndicator from '../../common/layout/LoadingIndicator';
 import { useStore } from '../../stores/store';
 import { observer } from 'mobx-react-lite';
 
-function VacanciesPage() {
+export default observer(function VacanciesPage() {
 
     const {vacanciesStore} = useStore();
 
@@ -20,10 +20,7 @@ function VacanciesPage() {
     return (
         <Fragment>
             <EmployerNavBar/>
-
             <VacanciesDashboard />
         </Fragment>
     )
-}
-
-export default observer(VacanciesPage);
+})

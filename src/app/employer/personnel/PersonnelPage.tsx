@@ -1,29 +1,25 @@
-import axios from 'axios';
-import { Fragment, useEffect, useState } from 'react';
-import { Employee } from '../../models/Employee';
+import { observer } from 'mobx-react-lite';
+import { Fragment, useEffect} from 'react';
+import LoadingIndicator from '../../common/layout/LoadingIndicator';
+import { useStore } from '../../stores/store';
 import EmployerNavBar from '../EmployerNavBar';
-import PersonnelDashboard from './PersonnelDashboard';
+import PersonnelList from './PersonnelList';
 
-export default function PersonnelPage() {
+export default observer(function PersonnelPage() {
 
-    const initialState = [] as Employee[];
-    const [employees, setEmployees] = useState(initialState);
-
+    const {personnelStore} = useStore();
+    
     useEffect(() => {
-        axios.get('https://hr-sample-b3c2d-default-rtdb.firebaseio.com/employees.json')
-            .then(response => {
-                const employees = [] as Employee[];
-                for(let key in response.data){
-                    employees.push({...response.data[key], id: key});
-                }
-                console.log(response.data);
-                setEmployees(employees);
-            })
-    }, []);
+        personnelStore.loadPersonnelList();
+    }, [personnelStore]);
+
+    if(personnelStore.isLoading) {
+        return <LoadingIndicator />
+    }
 
     return (
         <Fragment>
             <EmployerNavBar/>
-            <PersonnelDashboard employees={employees}/>
+            <PersonnelList />
         </Fragment>
-)}
+)})
