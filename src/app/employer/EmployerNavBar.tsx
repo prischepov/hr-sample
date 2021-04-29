@@ -13,7 +13,7 @@ export default function EmployerNavBar() {
     }
 
     return (
-        <Menu>
+        <Menu stackable>
             <Menu.Item as={Link} to="/employer/personnel" header>
                 <Icon name="cogs" size="large"/>
                 HR Sample

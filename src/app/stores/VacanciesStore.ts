@@ -1,3 +1,4 @@
+import { ClosureReason } from './../models/Enums';
 import { Vacancy } from './../models/Vacancy';
 import { makeAutoObservable, runInAction } from "mobx";
 import client from '../common/api/client';
@@ -16,7 +17,7 @@ export default class VacanciesStore {
         this.isLoading = state;
     }
 
-    setisSubmittingState(state: boolean) {
+    setIsSubmittingState(state: boolean) {
         this.isSubmitting = state;
     }
 
@@ -49,46 +50,71 @@ export default class VacanciesStore {
     }
 
     createVacancy = async (vacancy: Vacancy) => {
-        this.setisSubmittingState(true);
+        this.setIsSubmittingState(true);
         try {
             vacancy.isClosed = false;
             vacancy.publishedTimestamp = new Date();
             await client.Vacancies.create(vacancy);
             runInAction(() => {
                 this.vacancies.push(vacancy);
-                this.setisSubmittingState(false);
+                this.setIsSubmittingState(false);
             });
         } catch (error) {
             console.log(error);
-            this.setisSubmittingState(false);
+            this.setIsSubmittingState(false);
         }
     }
 
     editVacancy = async (vacancy: Vacancy) => {
-        this.setisSubmittingState(true);
+        this.setIsSubmittingState(true);
         try {
             await client.Vacancies.edit(vacancy);
             runInAction(() => {
                 this.vacancies = [...this.vacancies.filter(v => v.id !== vacancy.id), vacancy];
-                this.setisSubmittingState(false);
+                this.setIsSubmittingState(false);
             });
         } catch (error) {
             console.log(error);
-            this.setisSubmittingState(false); 
+            this.setIsSubmittingState(false); 
+        }
+    }
+
+    closeVacancy = async(id: string, reason: ClosureReason) => {
+        this.setIsSubmittingState(true);
+        try {
+            const vacancyToBeClosed = this.vacancies.find((vacancy) => vacancy.id === id);
+            if(!vacancyToBeClosed){
+                return undefined;
+            }
+            let closedVacancy  = 
+                {...vacancyToBeClosed, 
+                    isClosed: true,
+                    closureReason: reason, 
+                    closedTimestamp: new Date(),
+                } as Vacancy;
+            await client.Vacancies.close(closedVacancy);
+            runInAction(() => {
+                this.vacancies = [...this.vacancies.filter(v => v.id !== id), closedVacancy];
+                this.isSubmitting = false;
+            });
+            return closedVacancy;
+        } catch (error) {
+            console.log(error);
+            this.setIsSubmittingState(false); 
         }
     }
 
     deleteVacancy = async (id: string) => {
-        this.setisSubmittingState(true);
+        this.setIsSubmittingState(true);
         try {
             await client.Vacancies.delete(id);
             runInAction(() => {
                 this.vacancies = this.vacancies.filter(v => v.id !== id);
-                this.setisSubmittingState(false);
+                this.setIsSubmittingState(false);
             });
         } catch (error) {
             console.log(error);
-            this.setisSubmittingState(false); 
+            this.setIsSubmittingState(false); 
         }
     }
 }

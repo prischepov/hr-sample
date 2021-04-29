@@ -13,7 +13,6 @@ export default function VacanciesDashboard() {
                             as={Link} to="/employer/vacancies/create"
                             positive floated="right" />
                     </Container>
-
                     <VacanciesList />
                 </Fragment>
         </Fragment>

@@ -39,7 +39,13 @@ const Vacancies = {
     },
     create: (vacancy: Vacancy) => axios.post('/vacancies.json', vacancy),
     edit: (vacancy: Vacancy) => axios.put(`/vacancies/${vacancy.id}/.json`, vacancy),
-    // update: (vacancy: Vacancy) => axios.patch(`/vacancies/${vacancy.id}/.json`, vacancy),
+    close: (vacancy: Vacancy) => {
+        axios.patch(`/vacancies/${vacancy.id}/.json`, {
+            isClosed: true,
+            closureReason: vacancy.closureReason, 
+            closedTimestamp: vacancy.closedTimestamp
+        })
+    },
     delete: (id: string) => axios.delete(`/vacancies/${id}/.json`)
 }
 
