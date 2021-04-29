@@ -2,10 +2,8 @@ import { Fragment } from 'react';
 import LoginForm from './LoginForm';
 import './MainPage.css';
 
-const MainPage = () => (
-    <Fragment>
+export default function MainPage () {
+    return (<Fragment>
         <LoginForm />
-    </Fragment>
-)
-
-export default MainPage
+    </Fragment>)
+}

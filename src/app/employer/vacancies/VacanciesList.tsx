@@ -5,6 +5,7 @@ import { Button, Icon, Item, Label, Segment } from "semantic-ui-react"
 import { ScheduleShifts } from "../../models/Enums";
 import { Vacancy } from "../../models/Vacancy"
 import { useStore } from "../../stores/store";
+import VacancyTimestamp from "./VacancyTimestamp";
 
 export default observer(function VacanciesList() {
 
@@ -33,11 +34,7 @@ export default observer(function VacanciesList() {
                          <Item.Content>
                             <Item.Header as={Link} to={`/employer/vacancies/view/${vacancy.id}`} content={vacancy.position} />
                             <Item.Description>
-                                <Label color={vacancy.isClosed ? 'red' : 'green'}>
-                                { vacancy.isClosed 
-                                    ? `closed ${vacancy.closedTimestamp}` 
-                                    : `published ${vacancy.publishedTimestamp}` }
-                                </Label>
+                                <VacancyTimestamp vacancy={vacancy}/>
                                 <div><Icon name="calendar" />{vacancy.scheduleDays}</div>
                                 <div>
                                     <Icon name={vacancy.scheduleShifts === ScheduleShifts.Day ? "sun" : "moon"}/>

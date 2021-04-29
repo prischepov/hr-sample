@@ -7,6 +7,7 @@ import { ClosureReason, CLOSURE_REASON_OPTIONS, ScheduleShifts } from '../../mod
 import { Vacancy } from '../../models/Vacancy';
 import { useStore } from '../../stores/store'
 import EmployerNavBar from '../EmployerNavBar';
+import VacancyTimestamp from './VacancyTimestamp';
 
 export default observer (function VacancyDetails() {
 
@@ -44,12 +45,7 @@ export default observer (function VacancyDetails() {
                             {vacancy.position}
                         </Card.Header>
                         <Card.Description>
-                            <Label color={vacancy.isClosed ? 'red' : 'green'}>
-                                <Icon name="clock" />
-                                { vacancy.isClosed 
-                                    ? `closed ${vacancy.closedTimestamp}` 
-                                    : `published ${vacancy.publishedTimestamp}` }
-                            </Label>
+                            <VacancyTimestamp vacancy={vacancy}/>
                             <div><Icon name="calendar" />{vacancy.scheduleDays}</div>
                             <div>
                                 <Icon name={vacancy.scheduleShifts === ScheduleShifts.Day ? "sun" : "moon"}/>
